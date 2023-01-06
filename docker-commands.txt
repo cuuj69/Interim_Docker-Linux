@@ -1,0 +1,172 @@
+So working with docker is pretty simple you need to mostly share working code while collaboration and while constraints of different working environments persists there is an antidote 
+
+proposed workflow by mosh
+
+working directory with preconfigured dependencies-->registry(dockerhub)--->test/production
+
+how to get started
+create file named dockerfile with no extensions in your working directory
+
+now in the Docker file type the following commands
+
+FROM(referencing a base image of node, unknown to me in documentation on the docker site node is listed to be from alpine so we stick with that)
+
+hence
+FROM node:alpine
+
+Secondly we need to instruct the reciepient to copy the code from a directory to the destination directory
+since our code is mainly in app.js we tell it to copy from our working directory which is the test-docker or simply characterised by a simple . and the destination to copy from is the app.js or simply /app because the name distincts it and no need to add extensions
+hence
+
+COPY . /app
+
+now the working directory to be in to facilitate code execution is defined in our case we need to select /app because the execution will be done against it
+hence 
+WORKDIR /app
+
+summarily we add the execution code to run the script
+hence
+
+CMD node app.js
+
+now when building the image here's how it's done
+docker build -t(tag) foldername(test-docker) + working directory(. in this case)
+so we have
+docker build -t test-docker .
+
+Proper RoadMap
+
+Introduction to Docker (25m)
+ Preview1- Introduction (0:44)
+ Preview2- What is Docker (3:15)
+ Preview3- Virtual Machines vs Containers (3:14)
+ Preview4- Docker Architecture (2:14)
+ Start5- Installing Docker (3:35)
+ Start6- Development Workflow (2:16)
+ Start7- Docker in Action (9:32)
+ Start8- Summary
+ Start9- A Note for Windows Users
+The Linux Command Line (65m)
+ Start1- Introduction (0:51)
+ Start2- Linux Distributions (1:02)
+ Start3- Running Linux (5:11)
+ Start4- Managing Packages (3:34)
+ Start5- Linux File System (1:58)
+ Start6- Navigating the File System (4:19)
+ Start7- Manipulating Files and Directories (3:26)
+ Start8- Editing and Viewing Files (3:54)
+ Start9- Redirection (3:04)
+ Start10- Searching for Text (2:18)
+ Start11- Finding Files and Directories (3:23)
+ Start12- Chaining Commands (5:05)
+ Start13- Environment Variables (7:34)
+ Start14- Managing Processes (2:55)
+ Start15- Managing Users (7:01)
+ Start16- Managing Groups (3:17)
+ Start17- File Permissions (5:23)
+ Start18- Summary
+
+
+docker shortcuts instead of docker pull then you run the container, you can attempt to run the container and docker will download it behind the scenes
+
+docker ps (Processes) used to check which processes are currently running
+
+So lets say you download a container and you want to run it you use the code
+docker run -it(means interactive mode) + container name
+docker run -it ubuntu
+
+Linux tricks
+
+echo == print/ console.log()
+whoami == shows which privelleges one has
+$ normal Users
+# utmost privelleges
+
+history == git log --oneline
+apt == app package tool
+nano is a file editor
+when installing packages in linux always do apt update
+before installing packages always update before and then run the installation Command
+
+
+more tricks
+
+pwd-print working directory
+ls == means list the contents of the current working directory
+ls -1 to display contents in a more orderly manner
+
+ls -l this outputs a more detailed list 
+
+relative path is a path peculiar to the pwd
+absolute path can be something specific
+
+cd == enter a directory
+cd .. go back to previous(one level up)
+cd ../.. two levels up (Nice!)
+
+cd ~ To enter home directory
+
+ls ~
+
+to rename a file in linux, we use mv commands
+eg, mkdir test
+ls
+# test
+
+mv test + newname
+
+you can create multiple files in linux using touch as follows
+touch file1.ext file2.ext file3.ext .....
+
+mv has two functions: to rename files and to move files
+
+In renaming
+mv foo.txt bar.txt
+
+In moving from one directory to the other
+
+mv file + destination directory
+mv foo.txt /etc
+
+rm command used to remove
+
+rm filename
+rm file1name file2name ...
+
+rm pattern
+
+rm file*(with the name file)
+
+
+removing Directories
+rm -r to remove the directory and all it's contents recursively
+
+cat == concatinate
+cat allows you to see the contents of a file
+
+more also allows you to see the contents of a file especially if the contents are plenty
+
+downside of more is that we cannot scroll up, only down. The only solution to that is to use less which is also another package we need to install
+
+With the less command you can scroll up or down
+
+space to go to the next package
+q to exit
+
+head -n 5 To specify the number of lines we want to see from the file 
+tail -n x last ending lines
+
+we can do redirection in linux 
+
+we can read the contents of a file and then write the contents to another file using redirection
+
+cat with one file display the contents of that file
+cat with two files displays the contents of both files wow
+
+Now we can write the output to a different file 
+
+Wow linux is so freaking powerful
+
+we can send the output of a file to a different file created in that same instance
+
+
